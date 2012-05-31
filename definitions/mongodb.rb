@@ -154,7 +154,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
   end
   
   # replicaset
-  if !replicaset_name.nil?
+  unless replicaset_name.nil?
     rs_nodes = search(
       :node,
       "mongodb_cluster_name:#{replicaset['mongodb']['cluster_name']} AND \
@@ -162,10 +162,15 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
        mongodb_shard_name:#{replicaset['mongodb']['shard_name']} AND \
        chef_environment:#{replicaset.chef_environment}"
     )
-  
+
+    # add ourselves to the search results if we aren't already included
+    unless rs_nodes.index {|n| n[:fqdn] == node[:fqdn]}
+      rs_nodes << node
+    end
+
     ruby_block "config_replicaset" do
       block do
-        if not replicaset.nil?
+        unless replicaset.nil?
           MongoDB.configure_replicaset(replicaset, replicaset_name, rs_nodes)
         end
       end
