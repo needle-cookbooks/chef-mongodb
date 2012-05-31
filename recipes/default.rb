@@ -19,8 +19,17 @@
 # limitations under the License.
 #
 
+# the mongodb packages automatically start a mongodb server,
+# so we'll stop it immediately after installation
+service "initial-mongodb" do
+  start_command "/etc/init.d/mongodb start"
+  stop_command "/etc/init.d/mongodb stop"
+  action :nothing
+end
+
 package "mongodb" do
   action :install
+  notifies :stop, "service[initial-mongodb]", :immediately
 end
 
 needs_mongo_gem = (node.recipes.include?("mongodb::replicaset") or node.recipes.include?("mongodb::mongos"))
