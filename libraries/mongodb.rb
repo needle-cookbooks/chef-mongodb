@@ -23,6 +23,31 @@ require 'json'
 
 class Chef::ResourceDefinitionList::MongoDB
 
+
+  def self.server_ready?(ip, port, seconds=10)
+    # let's give the mongo daemon(s) more time to start up, and thereby
+    # increase the chances that configuring replicaset/sharding will work
+    require 'socket'
+    require 'timeout'
+
+    begin
+      Timeout::timeout(seconds) do
+        begin
+          TCPSocket.new(ip, port).close
+          Chef::Log.debug("Successfully opened a connection to MongoDB host at #{ip}:#{port}")
+          true
+        rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH => e
+          Chef::Log.debug("Failed to connect to MongoDB host at #{ip}:#{port}: #{e.inspect}")
+          false
+        end
+      end
+      rescue Timeout::Error
+        Chef::Log.debug("Failed to connect to MongoDB host at #{ip}:#{port}: timeout after #{seconds} seconds.")
+        false
+      end
+    end
+
+
   def self.configure_replicaset(node, name, members)
     # lazy require, to move loading this modules to runtime of the cookbook
     require 'rubygems'
