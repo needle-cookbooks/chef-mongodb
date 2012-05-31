@@ -63,9 +63,9 @@ class Chef::ResourceDefinitionList::MongoDB
     end
     
     begin
-      if self.server_ready?('localhost', node['mongodb']['port'])
-        connection = Mongo::Connection.new('localhost', node['mongodb']['port'], :op_timeout => 5, :slave_ok => true)
-      end
+      Chef::Log.debug("Waiting for MongoDB to become available:") 
+      Chef::Log.debug(".") until self.server_ready?('localhost', node['mongodb']['port'])
+      connection = Mongo::Connection.new('localhost', node['mongodb']['port'], :op_timeout => 5, :slave_ok => true)
     rescue
       Chef::Log.warn("Could not connect to database: 'localhost:#{node['mongodb']['port']}'")
       return
