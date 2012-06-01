@@ -156,7 +156,7 @@ class Chef::ResourceDefinitionList::MongoDB
         end
         
         Chef::Log.debug("Attempting to connect to replicaset, old_members: #{old_members.inspect}")
-        rs_connection = Mongo::ReplSetConnection.new( *old_members.collect{ |m| m.split(":") })
+        rs_connection = Mongo::ReplSetConnection.new(old_members)
         admin = rs_connection['admin']
         
         cmd = BSON::OrderedHash.new
