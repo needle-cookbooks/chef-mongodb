@@ -39,3 +39,9 @@ else
   default[:mongodb][:init_dir] = "/etc/init.d"
   default[:mongodb][:root_group] = "root"
 end
+
+# mongodb monitoring system attributes
+default[:mongodb][:agent_install_path] = "/opt/mms"
+# values for these attributes are available from http://mms.10gen.com/settings
+default[:mongodb][:agent_api_key] = false
+default[:mongodb][:agent_secret_key] = false

@@ -1,0 +1,3 @@
+#!/bin/bash
+exec 2>&1
+python <%= ::File.join(node[:mongodb][:agent_prefix], 'agent.py') %>
