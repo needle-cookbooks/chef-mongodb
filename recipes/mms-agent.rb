@@ -14,17 +14,19 @@ end
 
 bash "extract mms-agent" do
   code <<-EOH
+  cwd '/opt'
+    tar -zxvf /tmp/10gem-mms-agent.tar.gz
   EOH
   action :nothing
 end
 
 remote_file "/tmp/10gen-mms-agent.tar.gz" do
   source "https://mms.10gen.com/settings/10gen-mms-agent.tar.gz"
-  not_if { ::File.exists?(::File.join(node[:mongodb][:agent_prefix],'agent.py')) }
+  not_if { ::File.exists?(::File.join(node[:mongodb][:agent_prefix],'mms-agent','agent.py')) }
   notifies :run, "bash[extract mms-agent]", :immediately
 end
 
-template ::File.join(node[:mongodb][:agent_prefix],'settings.py') do
+template ::File.join(node[:mongodb][:agent_prefix],'mms-agent','settings.py') do
   source 'mms-agent-settings.py.erb'
   variables( :api_key => secrets['mongodb']['agent_api_key'],
              :secret_key => secrets['mongodb']['agent_secret_key'] )
