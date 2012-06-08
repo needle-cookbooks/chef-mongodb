@@ -15,7 +15,7 @@ end
 bash "extract mms-agent" do
   code <<-EOH
   cwd '/opt'
-    tar -zxvf /tmp/10gem-mms-agent.tar.gz
+    tar -zxvf /tmp/10gen-mms-agent.tar.gz
   EOH
   action :nothing
 end
