@@ -61,3 +61,8 @@ attribute "mongodb/replicaset_name",
 attribute "mongodb/enable_rest",
   :display_name => "Enable Rest",
   :description => "Enable the ReST interface of the webserver"
+
+attribute "mongodb/disable_prealloc",
+  :display_name => "Disable pre-allocation",
+  :description => "Disable pre-allocation of database files (recommended for development only)",
+  :default => false

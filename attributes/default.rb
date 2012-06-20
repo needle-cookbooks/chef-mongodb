@@ -28,6 +28,7 @@ default[:mongodb][:replicaset_name] = nil
 default[:mongodb][:shard_name] = "default"
 
 default[:mongodb][:enable_rest] = false
+default[:mongodb][:disable_prealloc] = false
 
 case node['platform']
 when "freebsd"
