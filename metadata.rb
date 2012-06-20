@@ -64,5 +64,4 @@ attribute "mongodb/enable_rest",
 
 attribute "mongodb/disable_prealloc",
   :display_name => "Disable pre-allocation",
-  :description => "Disable pre-allocation of database files (recommended for development only)",
-  :default => false
+  :description => "Disable pre-allocation of database files (recommended for development only)"
