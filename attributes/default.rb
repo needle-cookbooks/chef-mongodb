@@ -30,6 +30,8 @@ default[:mongodb][:shard_name] = "default"
 default[:mongodb][:enable_rest] = false
 default[:mongodb][:disable_prealloc] = false
 
+default[:mongodb][:use_ssl] = false
+
 case node['platform']
 when "freebsd"
   default[:mongodb][:defaults_dir] = "/etc/rc.conf.d"

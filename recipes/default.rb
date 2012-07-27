@@ -42,5 +42,6 @@ if node.recipes.include?("mongodb::default") or node.recipes.include?("mongodb")
     dbpath       node['mongodb']['dbpath']
     enable_rest  node['mongodb']['enable_rest']
     disable_prealloc node['mongodb']['disable_prealloc']
+    use_ssl      node['mongodb']['use_ssl']
   end
 end
