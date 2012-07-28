@@ -16,7 +16,7 @@ DAEMON_OPTS=""
 <%= @configsrv ? "DAEMON_OPTS=\"$DAEMON_OPTS --configsvr\"" : "" %>
 <%= @shardsrv ? "DAEMON_OPTS=\"$DAEMON_OPTS --shardsvr\"" : "" %>
 <%= @disable_prealloc? "DAEMON_OPTS=\"$DAEMON_OPTS --noprealloc\"" : "" %>
-<%= @use_ssl? "DAEMON_OPTS=\"$DAEMON_OPTS --sslOnNormalPorts --sslPEMKeyFile /etc/ssl/private/needle.crt\"": "" %>
+<%= @use_ssl? "DAEMON_OPTS=\"$DAEMON_OPTS --sslOnNormalPorts --sslPEMKeyFile /etc/ssl/private/needle.crt\"" : "" %>
 
 <% if @replicaset_name %>
 DAEMON_OPTS="$DAEMON_OPTS --replSet <%= @replicaset_name %>"
