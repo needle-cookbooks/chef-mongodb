@@ -116,6 +116,12 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
     recursive true
   end
 
+  dbpath_is_symlink = begin
+    ::File.readlink(dbpath)
+  rescue
+    return false
+  end
+
   if type != "mongos"
     # dbpath dir [make sure it exists]
     directory dbpath do
@@ -124,6 +130,9 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       mode "0755"
       action :create
       recursive true
+      if dbpath_is_symlink
+        ignore_failure true
+      end
     end
   end
 
