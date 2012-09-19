@@ -119,7 +119,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
   dbpath_is_symlink = begin
     ::File.readlink(dbpath)
   rescue
-    return false
+    false
   end
 
   if type != "mongos"
