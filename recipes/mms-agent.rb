@@ -4,7 +4,7 @@ include_recipe 'runit'
 data_bag_key = Chef::EncryptedDataBagItem.load_secret(node['data_bag_key'])
 secrets = Chef::EncryptedDataBagItem.load("secrets", node.chef_environment, data_bag_key)
 
-%w{ simplejson hmac hashlib pymongo }.each do |egg|
+%w{ hmac simplejson hashlib pymongo }.each do |egg|
   python_pip egg
 end
 
@@ -31,7 +31,7 @@ end
 template ::File.join(mms_dir,'settings.py') do
   source 'mms-agent-settings.py.erb'
   variables( :api_key => secrets['mongodb']['agent_api_key'],
-             :secret_key => secrets['mongodb']['agent_secret_key'] )
+             :secret_key => secrets['mongodb']['agent_api_secret'] )
 end
 
 runit_service "mms-agent"
