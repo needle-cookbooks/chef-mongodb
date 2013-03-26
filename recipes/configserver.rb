@@ -35,4 +35,5 @@ mongodb_instance "configserver" do
   logpath      node['mongodb']['logpath']
   dbpath       node['mongodb']['dbpath']
   enable_rest  node['mongodb']['enable_rest']
+  disable_prealloc node['mongodb']['disable_prealloc']
 end

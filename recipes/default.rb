@@ -42,5 +42,6 @@ if node.recipe?("mongodb::default") or node.recipe?("mongodb")
     logpath      node['mongodb']['logpath']
     dbpath       node['mongodb']['dbpath']
     enable_rest  node['mongodb']['enable_rest']
+    disable_prealloc node['mongodb']['disable_prealloc']
   end
 end

@@ -42,4 +42,5 @@ mongodb_instance "shard" do
     replicaset    node
   end
   enable_rest node['mongodb']['enable_rest']
+  disable_prealloc node['mongodb']['disable_prealloc']
 end

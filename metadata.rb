@@ -67,3 +67,7 @@ attribute "mongodb/bind_ip",
   :display_name => "Bind address",
   :description => "MongoDB instance bind address",
   :default => nil
+
+attribute "mongodb/disable_prealloc",
+  :display_name => "Disable pre-allocation",
+  :description => "Disable pre-allocation of database files (not recommended for production)"
